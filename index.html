@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Form</title>
+<style>
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Customer Form</h2>
+  <form id="myForm">
+    <label for="orderNo">Order No:</label>
+    <input type="text" id="orderNo" name="orderNo" required>
+    <label for="product">Product:</label>
+    <input type="text" id="product" name="product" required>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  var formData = new FormData(this);
+  fetch("https://script.google.com/macros/s/AKfycbz7jaIAmvYQHt4Cw89_RpiXD7O-hAw5f1pQ4HZbbirgmWLQJjYWRewNozxxviD2o25ELw/exec", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.text())
+  .then(link => {
+    var linkElement = document.createElement("p");
+    linkElement.textContent = "Form submitted successfully. Here's your link: " + link;
+    document.body.appendChild(linkElement);
+  })
+  .catch(error => console.error("Error submitting form: ", error));
+});
+</script>
+
+</body>
+</html>
